@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="message-form">
+  <div class="form-group">
+    <label for="phone_number">Phone Number</label>
+    <input
+      id="phone_number"
+      type="tel"
+      formControlName="phone_number"
+      placeholder="+14155552671"
+      aria-label="Phone number in E.164 format"
+      [attr.aria-invalid]="form.controls.phone_number.invalid && form.controls.phone_number.touched"
+    />
+    @if (form.controls.phone_number.touched && form.controls.phone_number.errors) {
+      <span class="error" role="alert">
+        @if (form.controls.phone_number.errors['required']) {
+          Phone number is required
+        } @else if (form.controls.phone_number.errors['pattern']) {
+          Must be in E.164 format (e.g. +14155552671)
+        }
+      </span>
+    }
+  </div>
+
+  <div class="form-group">
+    <label for="body">Message</label>
+    <textarea
+      id="body"
+      formControlName="body"
+      placeholder="Type your message..."
+      rows="4"
+      aria-label="Message body"
+      [attr.aria-invalid]="form.controls.body.invalid && form.controls.body.touched"
+    ></textarea>
+    <div class="char-counter" [class.char-counter--warn]="bodyRemaining < 100">
+      {{ bodyRemaining }} / {{ maxBodyLength }} characters remaining
+    </div>
+    @if (form.controls.body.touched && form.controls.body.errors) {
+      <span class="error" role="alert">
+        @if (form.controls.body.errors['required']) {
+          Message body is required
+        } @else if (form.controls.body.errors['maxlength']) {
+          Message cannot exceed {{ maxBodyLength }} characters
+        }
+      </span>
+    }
+  </div>
+
+  <button
+    type="submit"
+    [disabled]="form.invalid || sending()"
+    aria-label="Send SMS message"
+  >
+    @if (sending()) {
+      <span class="spinner"></span> Sending...
+    } @else {
+      Send Message
+    }
+  </button>
+</form>
