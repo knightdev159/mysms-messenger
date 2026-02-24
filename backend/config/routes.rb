@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post "signup", to: "registrations#create"
       get "me", to: "users#me"
       resources :messages, only: %i[index create]
+      post "webhooks/twilio_status", to: "webhooks#twilio_status"
     end
   end
 end

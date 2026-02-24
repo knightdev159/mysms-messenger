@@ -7,7 +7,9 @@ class SendSmsJob < ApplicationJob
     return if message.status == "sent"
 
     provider = SmsProviders::Twilio.new
-    result = provider.send_sms(to: message.phone_number, body: message.body)
+    base = ENV["TWILIO_WEBHOOK_BASE_URL"].to_s.sub(/\/\z/, "").presence
+    callback_url = base ? "#{base}/api/v1/webhooks/twilio_status" : nil
+    result = provider.send_sms(to: message.phone_number, body: message.body, callback_url: callback_url)
 
     if result[:success]
       message.update!(status: "sent", twilio_sid: result[:sid])
