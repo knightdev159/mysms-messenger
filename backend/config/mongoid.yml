@@ -1,9 +1,7 @@
 development:
   clients:
     default:
-      database: mysms_development
-      hosts:
-        - localhost:27017
+      uri: <%= ENV["MONGODB_URI"].presence || "mongodb://localhost:27017/mysms_development" %>
       options:
         server_selection_timeout: 5
   options:

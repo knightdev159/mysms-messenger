@@ -20,6 +20,9 @@ module Authenticable
   end
 
   def bearer_token
+    token = request.headers["X-Auth-Token"]&.strip
+    return token if token.present?
+
     auth = request.headers["Authorization"]
     return nil unless auth&.match?(/\ABearer\s+(.+)\z/)
     Regexp.last_match(1)

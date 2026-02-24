@@ -12,6 +12,8 @@ gem "lograge"
 gem "bcrypt"
 gem "jwt"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
+gem "fiddle"
+gem "ostruct"
 gem "bootsnap", require: false
 
 group :development, :test do

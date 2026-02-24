@@ -1,6 +1,8 @@
 module Api
   module V1
     class MessagesController < BaseController
+      before_action :authenticate_user!, only: %i[index create]
+
       DEFAULT_PER_PAGE = 20
       MAX_PER_PAGE = 100
 
@@ -20,11 +22,7 @@ module Api
 
       def create
         message = Message.new(message_params)
-        if current_user
-          message.user_id = current_user.id
-        else
-          message.session_id = session.id.to_s
-        end
+        message.user_id = current_user.id
 
         if message.save
           MessageDeliveryService.new.call(message)
@@ -37,11 +35,7 @@ module Api
       private
 
       def message_scope
-        if current_user
-          Message.by_user(current_user)
-        else
-          Message.by_session(session.id.to_s)
-        end
+        Message.by_user(current_user)
       end
 
       def message_params
