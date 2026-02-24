@@ -1,0 +1,52 @@
+services:
+  mongodb:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: production
+      MONGODB_URI: mongodb://mongodb:27017/mysms_production
+      REDIS_URL: redis://redis:6379/0
+      CORS_ORIGINS: http://localhost
+    depends_on:
+      - mongodb
+      - redis
+
+  sidekiq:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    command: bundle exec sidekiq
+    environment:
+      RAILS_ENV: production
+      MONGODB_URI: mongodb://mongodb:27017/mysms_production
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - backend
+      - redis
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  mongodb_data:
