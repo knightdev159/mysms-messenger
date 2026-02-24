@@ -44,7 +44,11 @@ RSpec.describe SendSmsJob, type: :job do
 
   context "when message is already sent" do
     let(:message) { create(:message, status: "sent") }
-    let(:mock_provider) { instance_double(SmsProviders::Twilio) }
+    let(:mock_provider) do
+      instance_double(SmsProviders::Twilio).tap do |d|
+        allow(d).to receive(:send_sms).and_return({ success: true, sid: "SM0", status: "sent" })
+      end
+    end
 
     it "does not attempt to send again" do
       described_class.perform_now(message.id.to_s)
