@@ -21,7 +21,10 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.4"
-          bundler-cache: true
+
+      - name: Install backend dependencies
+        working-directory: backend
+        run: bundle install
 
       - name: Run tests
         working-directory: backend
