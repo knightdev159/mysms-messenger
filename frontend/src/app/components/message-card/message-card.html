@@ -1,0 +1,12 @@
+<div class="card" role="article">
+  <div class="card__header">
+    <span class="card__phone">{{ message().phone_number }}</span>
+    <span class="card__time">{{ message().created_at | relativeTime }}</span>
+  </div>
+  <p class="card__body">{{ message().body }}</p>
+  <div class="card__footer">
+    <span class="card__status" [class]="statusClass">
+      {{ statusLabel }}
+    </span>
+  </div>
+</div>

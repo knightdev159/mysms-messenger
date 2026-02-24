@@ -1,0 +1,88 @@
+.card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  transition: box-shadow 0.2s;
+  animation: fadeIn 0.3s ease-out;
+
+  &:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  }
+}
+
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.card__phone {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #111827;
+}
+
+.card__time {
+  font-size: 0.8rem;
+  color: #9ca3af;
+}
+
+.card__body {
+  color: #374151;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0 0 0.75rem;
+  word-break: break-word;
+}
+
+.card__footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.card__status {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+}
+
+.status--queued {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status--sent {
+  background: #d1fae5;
+  color: #059669;
+}
+
+.status--delivered {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.status--failed {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+.status--undelivered {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

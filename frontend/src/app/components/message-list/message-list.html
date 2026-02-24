@@ -1,0 +1,37 @@
+<div class="messenger-layout">
+  <section class="form-panel">
+    <h2>Send a Message</h2>
+    <app-message-form (messageSent)="onMessageSent($event)" />
+  </section>
+
+  <section class="list-panel">
+    <div class="list-header">
+      <h2>Sent Messages</h2>
+      <span class="message-count">{{ totalMessages() }} total</span>
+    </div>
+
+    @if (loading()) {
+      <div class="skeleton-list">
+        @for (i of [1, 2, 3]; track i) {
+          <div class="skeleton-card">
+            <div class="skeleton-line skeleton-line--short"></div>
+            <div class="skeleton-line skeleton-line--long"></div>
+            <div class="skeleton-line skeleton-line--medium"></div>
+          </div>
+        }
+      </div>
+    } @else if (messages().length === 0) {
+      <div class="empty-state">
+        <div class="empty-state__icon">&#9993;</div>
+        <p class="empty-state__title">No messages sent yet</p>
+        <p class="empty-state__subtitle">Send your first SMS using the form!</p>
+      </div>
+    } @else {
+      <div class="message-list">
+        @for (message of messages(); track message._id) {
+          <app-message-card [message]="message" />
+        }
+      </div>
+    }
+  </section>
+</div>
