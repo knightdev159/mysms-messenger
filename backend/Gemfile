@@ -4,6 +4,8 @@ gem "rails", "~> 8.1.2"
 gem "puma", ">= 5.0"
 gem "mongoid", "~> 9.0"
 gem "dotenv-rails"
+gem "twilio-ruby"
+gem "sidekiq"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 

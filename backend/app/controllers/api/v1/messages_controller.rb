@@ -25,6 +25,7 @@ module Api
         message.session_id = session.id.to_s
 
         if message.save
+          MessageDeliveryService.new.call(message)
           render_created(message.as_json(only: %i[_id phone_number body status created_at]))
         else
           render_validation_errors(message)
