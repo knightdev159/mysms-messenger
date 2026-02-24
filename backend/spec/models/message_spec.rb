@@ -19,10 +19,16 @@ RSpec.describe Message, type: :model do
       expect(message.errors[:body]).to include("can't be blank")
     end
 
-    it "requires session_id" do
-      message = build(:message, session_id: nil)
+    it "requires session_id or user_id" do
+      message = build(:message, session_id: nil, user_id: nil)
       expect(message).not_to be_valid
-      expect(message.errors[:session_id]).to include("can't be blank")
+      expect(message.errors[:base]).to be_present
+    end
+
+    it "is valid with user_id and no session_id" do
+      user = create(:user)
+      message = build(:message, session_id: nil, user_id: user.id)
+      expect(message).to be_valid
     end
 
     it "validates phone_number is in E.164 format" do

@@ -79,6 +79,7 @@ GEM
       public_suffix (>= 2.0.2, < 8.0)
     ast (2.4.3)
     base64 (0.3.0)
+    bcrypt (3.1.21)
     bigdecimal (4.0.1)
     bootsnap (1.23.0)
       msgpack (~> 1.2)
@@ -343,6 +344,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt
   bootsnap
   brakeman
   bundler-audit
@@ -350,6 +352,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  jwt
   lograge
   mongoid (~> 9.0)
   mongoid-rspec

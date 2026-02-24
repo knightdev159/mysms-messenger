@@ -5,9 +5,7 @@ module Api
       MAX_PER_PAGE = 100
 
       def index
-        messages = Message
-          .by_session(session.id.to_s)
-          .recent_first
+        messages = message_scope.recent_first
 
         total = messages.count
         page = [params.fetch(:page, 1).to_i, 1].max
@@ -22,7 +20,11 @@ module Api
 
       def create
         message = Message.new(message_params)
-        message.session_id = session.id.to_s
+        if current_user
+          message.user_id = current_user.id
+        else
+          message.session_id = session.id.to_s
+        end
 
         if message.save
           MessageDeliveryService.new.call(message)
@@ -33,6 +35,14 @@ module Api
       end
 
       private
+
+      def message_scope
+        if current_user
+          Message.by_user(current_user)
+        else
+          Message.by_session(session.id.to_s)
+        end
+      end
 
       def message_params
         params.require(:message).permit(:phone_number, :body)

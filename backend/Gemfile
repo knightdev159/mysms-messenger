@@ -9,6 +9,8 @@ gem "sidekiq"
 gem "rack-cors"
 gem "rack-attack"
 gem "lograge"
+gem "bcrypt"
+gem "jwt"
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
