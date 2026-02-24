@@ -1,13 +1,13 @@
 <div class="messenger-layout">
-  <section class="form-panel">
-    <h2>Send a Message</h2>
+  <section class="form-panel" aria-labelledby="send-heading">
+    <h2 id="send-heading">Send a Message</h2>
     <app-message-form (messageSent)="onMessageSent($event)" />
   </section>
 
-  <section class="list-panel">
+  <section class="list-panel" aria-labelledby="sent-heading" [attr.aria-busy]="loading()">
     <div class="list-header">
-      <h2>Sent Messages</h2>
-      <span class="message-count">{{ totalMessages() }} total</span>
+      <h2 id="sent-heading">Sent Messages</h2>
+      <span class="message-count" aria-live="polite">{{ totalMessages() }} total</span>
     </div>
 
     @if (loading()) {

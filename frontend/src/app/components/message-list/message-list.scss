@@ -7,8 +7,29 @@
   padding: 2rem;
 }
 
-.form-panel,
+.form-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  height: fit-content;
+
+  h2 {
+    margin: 0 0 1.25rem;
+    font-size: 1.25rem;
+    color: #111827;
+  }
+}
+
 .list-panel {
+  background: #fff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  min-height: 400px;
+
   h2 {
     margin: 0 0 1.25rem;
     font-size: 1.25rem;
@@ -84,32 +105,47 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 3rem 1rem;
+  padding: 3rem 1.5rem;
   text-align: center;
   color: #9ca3af;
+  border: 2px dashed #e5e7eb;
+  border-radius: 12px;
+  background: #fafafa;
 }
 
 .empty-state__icon {
   font-size: 3rem;
   margin-bottom: 1rem;
-  opacity: 0.5;
+  opacity: 0.6;
+  line-height: 1;
 }
 
 .empty-state__title {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #6b7280;
+  color: #4b5563;
   margin: 0 0 0.5rem;
 }
 
 .empty-state__subtitle {
   font-size: 0.9rem;
   margin: 0;
+  color: #9ca3af;
 }
 
 @media (max-width: 768px) {
   .messenger-layout {
     grid-template-columns: 1fr;
     padding: 1rem;
+    gap: 1.5rem;
+  }
+
+  .form-panel,
+  .list-panel {
+    padding: 1.25rem;
+  }
+
+  .message-list {
+    max-height: 50vh;
   }
 }
